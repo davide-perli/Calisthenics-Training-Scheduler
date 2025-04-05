@@ -36,8 +36,13 @@ public class CalisthenicsApp {
 
         user.setLevel(skill_option);
 
-        staticExercises.showExercises();
-        dynamicExercises.showExercises();
+        System.out.println("Create you training program for your skill:\n");
+
+        Training training = new Training(user);
+        
+
+        //staticExercises.showExercises();
+        //dynamicExercises.showExercises();
 
         myObj.close();
     }
