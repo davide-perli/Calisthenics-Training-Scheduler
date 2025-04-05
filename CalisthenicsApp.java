@@ -3,8 +3,6 @@ import java.util.Scanner;
 public class CalisthenicsApp {
     public static void main(String[] args) {
         Scanner myObj = new Scanner(System.in);
-        Exercise staticExercises = new Static_exercise();
-        Exercise dynamicExercises = new Dynamic_exercise();
 
         String name_input;
         while (true) {

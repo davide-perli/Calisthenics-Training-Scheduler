@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.HashMap;
 
 public class Training {
     Static_exercise static_exercise = new Static_exercise();
@@ -10,13 +11,17 @@ public class Training {
     Training_program training_program = new Training_program();
     Athlete athlete;
 
+    HashMap<String, ExercisePlan> weeklyPlan = new HashMap<>();
+
     Scanner myObj = new Scanner(System.in);
 
     private String[] days = {"MON", "TUE", "WEN", "TUE", "FRY", "SAT", "SUN"};
     private String[] level = {"beginner", "intermidiate", "advanced", "expert"};
     protected int option;
     protected int contor;
-    protected String exercise_option;
+    protected String stat_exercise_option;
+    protected String dyn_exercise_option;
+    protected String sets_exercise_option;
 
     public Training(Athlete athlete) {
         this.athlete = athlete;
@@ -48,8 +53,8 @@ public class Training {
                     System.out.println("Invalid option! Please enter a valid option.");
                 }
             }
-            exercise_option = filteredExercises.get(option - 1);
-            System.out.println("You selected: " + exercise_option + "\n\nChoose a dynamic exercise:");
+            stat_exercise_option = filteredExercises.get(option - 1);
+            System.out.println("You selected: " + stat_exercise_option + "\n\nChoose a dynamic exercise:");
 
             filteredExercises.clear();
             contor = 0;
@@ -71,8 +76,8 @@ public class Training {
                     System.out.println("Invalid option! Please enter a valid option.");
                 }
             }
-            exercise_option = filteredExercises.get(option - 1);
-            System.out.println("You selected: " + exercise_option + "\n\nChoose sets and reps exercise:");
+            dyn_exercise_option = filteredExercises.get(option - 1);
+            System.out.println("You selected: " + dyn_exercise_option + "\n\nChoose sets and reps exercise:");
 
             filteredExercises.clear();
             contor = 0;
@@ -92,8 +97,13 @@ public class Training {
                     System.out.println("Invalid option! Please enter a valid option.");
                 }
             }
-            exercise_option = filteredExercises.get(option - 1);
-            System.out.println("You selected: " + exercise_option + "\n");
+            sets_exercise_option = filteredExercises.get(option - 1);
+            System.out.println("You selected: " + sets_exercise_option + "\n");
+
+            weeklyPlan.put(i, new ExercisePlan(stat_exercise_option, dyn_exercise_option, sets_exercise_option));
+            for (Map.Entry<String, ExercisePlan> entry : weeklyPlan.entrySet()) {
+                System.out.println(entry.getKey() + " → " + entry.getValue());
+            }            
 
         }
     }
