@@ -24,7 +24,7 @@ public class Training {
         String dyn_lev_val = level[athlete.getDynamic_level() - 1];
         System.out.println("For each day of the week you'll choose exercises for " + stat_lev_val + " static level and " + dyn_lev_val + " dynamic level");
         for (String i : days) {
-            System.out.println("For " + i + " choose your exercises\nChoose a static exercise: ");
+            System.out.println("For " + i + " choose your exercises\nChoose a static exercise:");
 
             training_program.addDay(i);
             
@@ -49,7 +49,7 @@ public class Training {
                 }
             }
             exercise_option = filteredExercises.get(option - 1);
-            System.out.println("You selected: " + exercise_option + "\n\nChoose a dynamic exercise: ");
+            System.out.println("You selected: " + exercise_option + "\n\nChoose a dynamic exercise:");
 
             filteredExercises.clear();
             contor = 0;
@@ -59,6 +59,27 @@ public class Training {
                     filteredExercises.add(entry.getKey());
                     System.out.println(contor + ". " + entry.getKey());
                 }
+            }
+
+            while (true) {
+                System.out.print("\nOption: ");
+                option = myObj.nextInt();
+                
+                if (option>= 1 && option <= contor) {
+                    break;
+                } else {
+                    System.out.println("Invalid option! Please enter a valid option.");
+                }
+            }
+            exercise_option = filteredExercises.get(option - 1);
+            System.out.println("You selected: " + exercise_option + "\n\nChoose sets and reps exercise:");
+
+            filteredExercises.clear();
+            contor = 0;
+            for (Map.Entry<String, String> entry : sets_and_reps.getExerciseRanked().entrySet()) {       
+                contor ++;
+                filteredExercises.add(entry.getKey());
+                System.out.println(contor + ". " + entry.getKey());
             }
 
             while (true) {

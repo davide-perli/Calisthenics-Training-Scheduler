@@ -55,6 +55,7 @@ public class CalisthenicsApp {
 
         System.out.println("Create you training program for your skills:\n");
 
+        @SuppressWarnings("unused")
         Training training = new Training(user);
         
 
