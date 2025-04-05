@@ -24,6 +24,6 @@ public class ExercisePlan {
 
     @Override
     public String toString() {
-        return "[Static: " + staticExercise + ", Dynamic: " + dynamicExercise + ", Sets&Reps: " + setsAndReps + "]";
+        return "Static: " + staticExercise + ", Dynamic: " + dynamicExercise + ", Sets&Reps: " + setsAndReps;
     }
 }
