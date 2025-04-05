@@ -16,12 +16,13 @@ public class Training {
     private String[] level = {"beginner", "intermidiate", "advanced", "expert"};
     protected int option;
     protected int contor;
-    protected String static_option;
+    protected String exercise_option;
 
     public Training(Athlete athlete) {
         this.athlete = athlete;
-        String lev_val = level[athlete.getLevel() - 1];
-        System.out.println("For each day of the week you'll choose exercises for " + lev_val + " level");
+        String stat_lev_val = level[athlete.getStatic_level() - 1];
+        String dyn_lev_val = level[athlete.getDynamic_level() - 1];
+        System.out.println("For each day of the week you'll choose exercises for " + stat_lev_val + " static level and " + dyn_lev_val + " dynamic level");
         for (String i : days) {
             System.out.println("For " + i + " choose your exercises\nChoose a static exercise: ");
 
@@ -30,7 +31,7 @@ public class Training {
             contor = 0;
             List<String> filteredExercises = new ArrayList<>();
             for (Map.Entry<String, String> entry : static_exercise.getExerciseRanked().entrySet()) {       
-                if (entry.getValue().equals(lev_val)) {
+                if (entry.getValue().equals(stat_lev_val)) {
                     contor ++;
                     filteredExercises.add(entry.getKey());
                     System.out.println(contor + ". " + entry.getKey());
@@ -47,13 +48,13 @@ public class Training {
                     System.out.println("Invalid option! Please enter a valid option.");
                 }
             }
-            static_option = filteredExercises.get(option - 1);
-            System.out.println("You selected: " + static_option + "\n\nChoose a dynamic exercise: ");
+            exercise_option = filteredExercises.get(option - 1);
+            System.out.println("You selected: " + exercise_option + "\n\nChoose a dynamic exercise: ");
 
             filteredExercises.clear();
             contor = 0;
             for (Map.Entry<String, String> entry : dynamic_exercise.getExerciseRanked().entrySet()) {       
-                if (entry.getValue().equals(lev_val)) {
+                if (entry.getValue().equals(dyn_lev_val)) {
                     contor ++;
                     filteredExercises.add(entry.getKey());
                     System.out.println(contor + ". " + entry.getKey());
@@ -70,8 +71,8 @@ public class Training {
                     System.out.println("Invalid option! Please enter a valid option.");
                 }
             }
-            static_option = filteredExercises.get(option - 1);
-            System.out.println("You selected: " + static_option + "\n");
+            exercise_option = filteredExercises.get(option - 1);
+            System.out.println("You selected: " + exercise_option + "\n");
 
         }
     }

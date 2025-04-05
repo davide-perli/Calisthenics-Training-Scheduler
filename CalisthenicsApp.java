@@ -21,10 +21,11 @@ public class CalisthenicsApp {
         Athlete user = new Athlete();
         user.setName(name_input);
 
-        System.out.println("\nChose your skill level:\n1.Beginner\n2.Intermidiate\n3.Advanced\n4.Expert\n");
+        System.out.println("\nChose your static skill level:\n1.Beginner\n2.Intermidiate\n3.Advanced\n4.Expert\n");
 
         int skill_option;
         while (true) {
+            System.out.print("\nOption: ");
             skill_option = myObj.nextInt();
             
             if (skill_option >= 1 && skill_option <= 4) {
@@ -34,9 +35,25 @@ public class CalisthenicsApp {
             }
         }
 
-        user.setLevel(skill_option);
+        user.setStatic_level(skill_option);
 
-        System.out.println("Create you training program for your skill:\n");
+
+        System.out.println("\nChose your dynamic skill level:\n1.Beginner\n2.Intermidiate\n3.Advanced\n4.Expert\n");
+
+        while (true) {
+            System.out.print("\nOption: ");
+            skill_option = myObj.nextInt();
+            
+            if (skill_option >= 1 && skill_option <= 4) {
+                break;
+            } else {
+                System.out.println("Invalid option! Please enter a number between 1 and 4.");
+            }
+        }
+
+        user.setDynamic_level(skill_option);
+
+        System.out.println("Create you training program for your skills:\n");
 
         Training training = new Training(user);
         
