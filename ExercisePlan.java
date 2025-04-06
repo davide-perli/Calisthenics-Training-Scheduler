@@ -1,4 +1,3 @@
-// Helper Class
 public class ExercisePlan {
     private String staticExercise;
     private String dynamicExercise;
@@ -22,8 +21,14 @@ public class ExercisePlan {
         return setsAndReps;
     }
 
+    private String padRight(String s, int n) {
+        return String.format("%-" + n + "s", s);
+    }
+
     @Override
     public String toString() {
-        return "Static: " + staticExercise + ", Dynamic: " + dynamicExercise + ", Sets&Reps: " + setsAndReps;
+        return "|Static: " + padRight(staticExercise, 19) +
+               "|  |Dynamic: " + padRight(dynamicExercise, 17) +
+               "|  |Sets&Reps: " + padRight(setsAndReps, 38) + "|";
     }
 }

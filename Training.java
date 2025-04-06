@@ -35,7 +35,7 @@ public class Training {
 
             training_program.addDay(i);
 
-            System.out.println("\nChose static skill level:\n1.Beginner\n2.Intermidiate\n3.Advanced\n4.Expert\n");
+            System.out.println("\nPick static skill level up:\n1.Beginner\n2.Intermidiate\n3.Advanced\n4.Expert\n");
 
             int skill_option;
             while (true) {
@@ -50,26 +50,8 @@ public class Training {
             }
 
             athlete.setStatic_level(skill_option);
-
-
-            System.out.println("\nChose dynamic skill level:\n1.Beginner\n2.Intermidiate\n3.Advanced\n4.Expert\n");
-
-            while (true) {
-                System.out.print("\nOption: ");
-                skill_option = myObj.nextInt();
-                
-                if (skill_option >= 1 && skill_option <= 4) {
-                    break;
-                } else {
-                    System.out.println("Invalid option! Please enter a number between 1 and 4.");
-                }
-            }
-
-            athlete.setDynamic_level(skill_option);
-
             this.athlete = athlete;
             String stat_lev_val = level[athlete.getStatic_level() - 1];
-            String dyn_lev_val = level[athlete.getDynamic_level() - 1];
 
             System.out.println("\nChoose static exercise:");
             
@@ -79,7 +61,8 @@ public class Training {
                 if (entry.getValue().equals(stat_lev_val)) {
                     contor ++;
                     filteredExercises.add(entry.getKey());
-                    System.out.println(contor + ". " + entry.getKey());
+                    if(contor >= 10) System.out.println(contor + ". " + entry.getKey());
+                    else System.out.println(" " + contor + ". " + entry.getKey());
                 }
             }
 
@@ -94,7 +77,27 @@ public class Training {
                 }
             }
             stat_exercise_option = filteredExercises.get(option - 1);
-            System.out.println("You selected: " + stat_exercise_option + "\n\nChoose dynamic exercise:");
+            System.out.println("You selected: " + stat_exercise_option);
+
+            System.out.println("\nPick dynamic skill level up:\n1.Beginner\n2.Intermidiate\n3.Advanced\n4.Expert\n");
+
+            while (true) {
+                System.out.print("\nOption: ");
+                skill_option = myObj.nextInt();
+                
+                if (skill_option >= 1 && skill_option <= 4) {
+                    break;
+                } else {
+                    System.out.println("Invalid option! Please enter a number between 1 and 4.");
+                }
+            }
+
+            athlete.setDynamic_level(skill_option);
+
+            this.athlete = athlete;       
+            String dyn_lev_val = level[athlete.getDynamic_level() - 1];
+
+            System.out.println("\n\nChoose dynamic exercise:");
 
             filteredExercises.clear();
             contor = 0;
@@ -124,7 +127,8 @@ public class Training {
             for (Map.Entry<String, String> entry : sets_and_reps.getExerciseRanked().entrySet()) {       
                 contor ++;
                 filteredExercises.add(entry.getKey());
-                System.out.println(contor + ". " + entry.getKey());
+                if(contor >= 10) System.out.println(contor + ". " + entry.getKey());
+                else System.out.println(" " + contor + ". " + entry.getKey());
             }
 
             while (true) {
@@ -143,7 +147,14 @@ public class Training {
             weeklyPlan.put(i, new ExercisePlan(stat_exercise_option, dyn_exercise_option, sets_exercise_option));           
 
         }
+ 
+    }
 
+    public HashMap<String, ExercisePlan> getWeeklyPlan(){
+        return weeklyPlan;
+    }
+
+    public void showPlan(HashMap<String, ExercisePlan> weeklyPlan){
         List<String> dayOrder = Arrays.asList("MON", "TUE", "WEN", "THU", "FRY", "SAT", "SUN");
 
         Map<String, ExercisePlan> sortedWeeklyPlan = new TreeMap<>(Comparator.comparingInt(dayOrder::indexOf));
@@ -152,6 +163,5 @@ public class Training {
         for (Map.Entry<String, ExercisePlan> entry : sortedWeeklyPlan.entrySet()) {
             System.out.println(entry.getKey() + " → " + entry.getValue());
         }
- 
     }
 }
