@@ -25,9 +25,6 @@ public class CalisthenicsApp {
         System.out.println("Athlete " + user.getName() + " training program: ");
         training.showPlan(training.getWeeklyPlan());
 
-        //staticExercises.showExercises();
-        //dynamicExercises.showExercises();
-
         myObj.close();
     }
 }

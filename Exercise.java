@@ -15,8 +15,4 @@ abstract class Exercise {
     return exercise_ranked;
   }
 
-  public void showExercises() {
-    System.out.println(getClass().getSimpleName() + " exercises: " + exercise_ranked);
-  }
- 
 }
