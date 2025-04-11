@@ -1,5 +1,3 @@
-import java.util.HashMap;
-
 public class Static_exercise extends Exercise {
     public Static_exercise(){
         super();
@@ -37,7 +35,4 @@ public class Static_exercise extends Exercise {
 
     }
 
-    public HashMap<String, String> getExerciseRanked() {
-        return exercise_ranked;
-    }
 }
