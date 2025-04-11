@@ -11,7 +11,7 @@ public class Training {
     Static_exercise static_exercise = new Static_exercise();
     Dynamic_exercise dynamic_exercise = new Dynamic_exercise();
     Sets_and_reps sets_and_reps = new Sets_and_reps();
-    Training_program training_program = new Training_program();
+    Training_days training_program = new Training_days();
     Athlete athlete;
 
     HashMap<String, ExercisePlan> weeklyPlan = new HashMap<>();
