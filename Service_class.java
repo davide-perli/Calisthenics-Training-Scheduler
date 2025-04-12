@@ -11,7 +11,7 @@ public class Service_class extends Exercise {
     }
 
     public void putInput(String Input, String value){
-        x.put(Input, value);
+        exercise_ranked.put(Input, value);
     }
 
     public Map<String, ExercisePlan> sortMap(HashMap<String, ExercisePlan> weeklyPlan){
@@ -34,7 +34,7 @@ public class Service_class extends Exercise {
 
     @Override
     public HashMap<String, String> getExerciseRanked() {
-        return x;
+        return exercise_ranked;
     }
 
 }

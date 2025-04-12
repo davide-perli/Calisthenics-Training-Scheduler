@@ -3,11 +3,11 @@ import java.util.HashMap;
 
 abstract class Exercise {
   protected ArrayList<String> exercises;
-  protected HashMap<String, String> x;
+  protected HashMap<String, String> exercise_ranked;
 
   protected Exercise(){
     exercises = new ArrayList<>();
-    x = new HashMap<>();
+    exercise_ranked = new HashMap<>();
   }
 
   // Getter
