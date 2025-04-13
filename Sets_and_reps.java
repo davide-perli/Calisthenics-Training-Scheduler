@@ -1,19 +1,36 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Sets_and_reps extends Exercise {
+
+    private Service_class x;
+
     public Sets_and_reps(){
-        super();
-        exercise_ranked.put("Dips(pronated, supinated, neutral)", "beginner");
-        exercise_ranked.put("Pull-Ups(pronated, supinated, neutral)", "beginner");
-        exercise_ranked.put("Push-Ups(pronated, supinated, neutral)", "beginner");
-        exercise_ranked.put("Russian Dips", "beginner");
-        exercise_ranked.put("Crunches", "beginner");
-        exercise_ranked.put("Shoulder Taps(for abdomen)", "beginner");
-        exercise_ranked.put("V-Sits", "beginner");
-        exercise_ranked.put("Squats", "beginner");
-        exercise_ranked.put("One Leg Assisted Squats", "beginner");
-        exercise_ranked.put("Bulgarian Squats", "beginner");
-        exercise_ranked.put("Forearm Push-Ups", "intermidiate");
-        exercise_ranked.put("One Arm Push-Ups", "intermidiate");
-        exercise_ranked.put("One Arm Pull-Ups", "advanced");
-        exercise_ranked.put("Tricep Push-Ups", "advanced");
-    }  
+        x = new Service_class();
+        x.putInput("Dips(pronated, supinated, neutral)", "beginner");
+        x.putInput("Pull-Ups(pronated, supinated, neutral)", "beginner");
+        x.putInput("Push-Ups(pronated, supinated, neutral)", "beginner");
+        x.putInput("Russian Dips", "beginner");
+        x.putInput("Crunches", "beginner");
+        x.putInput("Shoulder Taps(for abdomen)", "beginner");
+        x.putInput("V-Sits", "beginner");
+        x.putInput("Squats", "beginner");
+        x.putInput("One Leg Assisted Squats", "beginner");
+        x.putInput("Bulgarian Squats", "beginner");
+        x.putInput("Forearm Push-Ups", "intermidiate");
+        x.putInput("One Arm Push-Ups", "intermidiate");
+        x.putInput("One Arm Pull-Ups", "advanced");
+        x.putInput("Tricep Push-Ups", "advanced");
+
+        this.exercises = new ArrayList<>(x.exercises);
+    }
+    @Override
+    public String getExercise(int index) {
+        return exercises.get(index);
+    } 
+    
+    @Override
+    public HashMap<String, String> getExerciseRanked() {
+        return x.getExerciseRanked();
+    }
 }

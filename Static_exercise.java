@@ -1,38 +1,54 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Static_exercise extends Exercise {
+    private Service_class x;
     public Static_exercise(){
-        super();
-        exercises.add("L-Sit");
-        exercises.add("Handstand");
-        exercises.add("Pull-Over");
-        exercises.add("Muscle-Up");
-        exercises.add("Handstand Push-Up");
-        exercises.add("Back Lever");
-        exercises.add("Front Lever");
-        exercises.add("Dragon Press");
-        exercises.add("Back Lever Pull-Up");
-        exercises.add("Front Lever Pull-Up");
-        exercises.add("Front Lever Press");
-        exercises.add("Planche");
-        exercises.add("Hefesto");
-        exercises.add("Planche Push-Up");
-        exercises.add("Planche Press");
-        exercises.add("Front Lever Touch");
-        exercises.add("Victorian");
-        exercises.add("One Arm Front Lever");
-        exercises.add("Back Lever Hefesto");
-        exercises.add("Front SAT");
-        exercises.add("Back SAT");
-        exercises.add("Maltese");
-        exercises.add("Maltese Press");
-        exercises.add("Entrada de Angel");
+        x = new Service_class();
+        x.addInput("L-Sit");
+        x.addInput("Handstand");
+        x.addInput("Pull-Over");
+        x.addInput("Muscle-Up");
+        x.addInput("Handstand Push-Up");
+        x.addInput("Back Lever");
+        x.addInput("Front Lever");
+        x.addInput("Dragon Press");
+        x.addInput("Back Lever Pull-Up");
+        x.addInput("Front Lever Pull-Up");
+        x.addInput("Front Lever Press");
+        x.addInput("Planche");
+        x.addInput("Hefesto");
+        x.addInput("Planche Push-Up");
+        x.addInput("Planche Press");
+        x.addInput("Front Lever Touch");
+        x.addInput("Victorian");
+        x.addInput("One Arm Front Lever");
+        x.addInput("Back Lever Hefesto");
+        x.addInput("Front SAT");
+        x.addInput("Back SAT");
+        x.addInput("Maltese");
+        x.addInput("Maltese Press");
+        x.addInput("Entrada de Angel");
 
         for(int i = 0; i < 24; i++){
-            if(i < 4){exercise_ranked.put(exercises.get(i), "beginner");}
-            else if(i <= 7){exercise_ranked.put(exercises.get(i), "intermidiate");}
-            else if(i <= 18){exercise_ranked.put(exercises.get(i), "advanced");}
-            else{exercise_ranked.put(exercises.get(i), "expert");}
+            if(i < 4){x.putInput(x.getExercise(i), "beginner");}
+            else if(i <= 7){x.putInput(x.getExercise(i), "intermidiate");}
+            else if(i <= 18){x.putInput(x.getExercise(i), "advanced");}
+            else{x.putInput(x.getExercise(i), "expert");}
         }
 
+        this.exercises = new ArrayList<>(x.exercises);
+
+    }
+
+    @Override
+    public String getExercise(int index) {
+        return exercises.get(index);
+    }
+
+    @Override
+    public HashMap<String, String> getExerciseRanked() {
+        return x.getExerciseRanked();
     }
 
 }

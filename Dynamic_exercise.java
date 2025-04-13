@@ -1,24 +1,42 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Dynamic_exercise extends Exercise{
+    
+    private Service_class x;
+
     public Dynamic_exercise(){
-        super();
-        exercises.add("180");
-        exercises.add("Front Roll");
-        exercises.add("Dragon 360");
-        exercises.add("360");
-        exercises.add("Baby Giant");
-        exercises.add("Giant");
-        exercises.add("Geinger");
-        exercises.add("540");
-        exercises.add("Front Flip Regrab");
-        exercises.add("720");
-        exercises.add("Giant 360");
+        x = new Service_class();
+        x.addInput("180");
+        x.addInput("Front Roll");
+        x.addInput("Dragon 360");
+        x.addInput("360");
+        x.addInput("Baby Giant");
+        x.addInput("Giant");
+        x.addInput("Geinger");
+        x.addInput("540");
+        x.addInput("Front Flip Regrab");
+        x.addInput("720");
+        x.addInput("Giant 360");
 
         for(int i = 0; i < 11; i++){
-            if(i <= 1){exercise_ranked.put(exercises.get(i), "beginner");}
-            else if(i <= 4){exercise_ranked.put(exercises.get(i), "intermidiate");}
-            else if(i <= 7){exercise_ranked.put(exercises.get(i), "advanced");}
-            else{exercise_ranked.put(exercises.get(i), "expert");}
+            if(i <= 1){x.putInput(x.getExercise(i), "beginner");}
+            else if(i <= 4){x.putInput(x.getExercise(i), "intermidiate");}
+            else if(i <= 7){x.putInput(x.getExercise(i), "advanced");}
+            else{x.putInput(x.getExercise(i), "expert");}
         }
+
+        this.exercises = new ArrayList<>(x.exercises);
+    }
+
+    @Override
+    public String getExercise(int index) {
+        return exercises.get(index);
+    }
+
+    @Override
+    public HashMap<String, String> getExerciseRanked() {
+        return x.getExerciseRanked();
     }
 }
 

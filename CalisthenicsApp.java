@@ -4,7 +4,7 @@ public class CalisthenicsApp {
     public static void main(String[] args) {
         Scanner myObj = new Scanner(System.in);
         String name_input;
-        System.out.println("\nWelcome to my caslisthenics app where you can create your personalized training program!\n");
+        System.out.println("\nWelcome to my calisthenics app where you can create your personalized training program!\n");
         while (true) {
             System.out.println("Enter your name: ");
             name_input = myObj.nextLine();

@@ -1,10 +1,7 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.TreeMap;
 import java.util.HashMap;
 
 public class Training {
@@ -12,6 +9,7 @@ public class Training {
     Dynamic_exercise dynamic_exercise = new Dynamic_exercise();
     Sets_and_reps sets_and_reps = new Sets_and_reps();
     Training_days training_program = new Training_days();
+    Service_class service = new Service_class();
     Athlete athlete;
 
     HashMap<String, ExercisePlan> weeklyPlan = new HashMap<>();
@@ -155,13 +153,8 @@ public class Training {
     }
 
     public void showPlan(HashMap<String, ExercisePlan> weeklyPlan){
-        List<String> dayOrder = Arrays.asList("MON", "TUE", "WEN", "THU", "FRY", "SAT", "SUN");
 
-        Map<String, ExercisePlan> sortedWeeklyPlan = new TreeMap<>(Comparator.comparingInt(dayOrder::indexOf));
-        sortedWeeklyPlan.putAll(weeklyPlan);
-
-        for (Map.Entry<String, ExercisePlan> entry : sortedWeeklyPlan.entrySet()) {
-            System.out.println(entry.getKey() + " → " + entry.getValue());
-        }
+        service.outPlan(weeklyPlan, service.sortMap(weeklyPlan));
+        
     }
 }
