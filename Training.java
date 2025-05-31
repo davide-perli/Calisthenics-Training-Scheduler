@@ -157,4 +157,8 @@ public class Training {
         service.outPlan(weeklyPlan, service.sortMap(weeklyPlan));
         
     }
+
+    public void putInDatabase(HashMap<String, ExercisePlan> weeklyPlan){
+        service.storePlan(athlete.getName(), weeklyPlan);
+    }
 }

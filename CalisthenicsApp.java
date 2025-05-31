@@ -22,6 +22,7 @@ public class CalisthenicsApp {
         System.out.println("\n\nWelcome " + user.getName()+ "!\nCreate you training program for your skill level:\n");
 
         Training training = new Training(user);
+        training.putInDatabase(training.getWeeklyPlan());
         System.out.println("Athlete " + user.getName() + " training program: ");
         training.showPlan(training.getWeeklyPlan());
 
