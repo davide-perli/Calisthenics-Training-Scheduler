@@ -38,13 +38,13 @@ public class CalisthenicsApp {
         user.setName(name_input);
 
         if (alreadyExists) {
-            System.out.println("\nWelcome back " + user.getName() + "!\n\nChoose what you want to do:\n1. Create a new training program\n2. View existing training program\n3. Delete training program\n");
+            System.out.println("\nWelcome back " + user.getName() + "!\n\nChoose what you want to do:\n1. Create a new training program\n2. View existing training program\n3. Modify you training program\n4. Delete training program\n");
             int option;
             while (true) {
                 System.out.print("Option: ");
                 option = myObj.nextInt();
                 
-                if (option >= 1 && option <= 3) {
+                if (option >= 1 && option <= 4) {
                     break;
                 } else {
                     System.out.println("Invalid option! Please enter a number between 1 and 3 as your option!\n");
@@ -60,6 +60,8 @@ public class CalisthenicsApp {
             } else if (option == 2) {
                 System.out.println("\nYou chose to view your existing training program.\n");
                 service.showExistingPlan(user.getName());
+            } else if (option == 3) {
+                System.out.println("\nYou chose to modify your training program.\n");
             } else {
                 System.out.println("\nAre you sure you want to delete your training program?(YES or NO)\nWARNING: This action cannot be undone!\n");
                 myObj.nextLine(); // Consume the newline character
