@@ -39,10 +39,12 @@
   - A service for writing to the database
   - A service for reading from the database
 
+  I created a class singleton class for the database connection + a generic method to get the singleton instance, a generic method for executing a query which doesn't return results (INSERT, UPDATE, DELETE) and just prepares the statement and executes it and a generic method for executing a query which returns a result(SELECT)
+
 ### Audit Service Implementation
 
 1. CSV Logging:
-- [] Create a service that logs each executed action to a CSV file and the service should be singleton and thread-safe
+- [] Create a service that logs each executed action to a CSV file and the service should be singleton and thread-safe so I created a singletonti class and for each create/view/update/delete operation I log the user + type of operation and the timestamp
 
 2. File Structure:
 - [] The CSV file should contain the following columns:
