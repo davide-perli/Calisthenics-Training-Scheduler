@@ -145,6 +145,8 @@ public class Training {
             weeklyPlan.put(i, new ExercisePlan(stat_exercise_option, dyn_exercise_option, sets_exercise_option));           
 
         }
+
+        Training_program_tracker_csv.getInstance().logAction(athlete.getName() + "_create_program");
  
     }
 
@@ -155,7 +157,6 @@ public class Training {
     public void showPlan(HashMap<String, ExercisePlan> weeklyPlan){
 
         service.outPlan(weeklyPlan, service.sortMap(weeklyPlan));
-        
     }
 
     public void putInDatabase(HashMap<String, ExercisePlan> weeklyPlan){

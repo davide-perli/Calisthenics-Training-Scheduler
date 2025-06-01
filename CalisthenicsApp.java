@@ -197,6 +197,7 @@ public class CalisthenicsApp {
                     System.out.println("\nTraining program updated successfully!");
                     System.out.println("\nUpdated plan for " + selectedDay + ":");
                     service.showExistingPlanForDay(user.getName(), selectedDay);
+                    Training_program_tracker_csv.getInstance().logAction(user.getName() + "_update_program");
                 } else {
                     System.out.println("\nFailed to update training program. Please try again.");
                 }
@@ -214,6 +215,7 @@ public class CalisthenicsApp {
                 } else if (confirmation.equals("YES") || confirmation.equals("Y")) {
                     System.out.println("\nYou chose to delete your training program.\n");
                     service.deletePlan(user.getName());
+                    Training_program_tracker_csv.getInstance().logAction(user.getName() + "_delete_program");
                 }
             }
         } else {

@@ -145,6 +145,7 @@ public class Service_class extends Exercise {
             System.err.println("Database error: " + e.getMessage());
             e.printStackTrace();
         }
+        Training_program_tracker_csv.getInstance().logAction(athleteName + "_show_program");
     }
 
     public void showExistingPlanForDay(String athleteName, String day) {
