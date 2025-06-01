@@ -1,16 +1,26 @@
 # Scope of Project
 
-**This project aims to help calisthenics athletes manage and create a training program suited to their needs, preferences, and skill level.**
+**This project aims to help calisthenics athletes create and manage a training program suited to their needs, preferences, and skill level.**
+
+# Requirements
+
+**Openjdk version "21.0.6" (compatibility with older versions is untested). Verify with:**
+**```java -version```**
+**PostgreSQL JDBC version 42.6.0 (ensure PostgreSQL is installed and running along with pgAdmin 4 in order to view created tables)**
 
 # Compilation
 
-**Run __CalisthenicsApp.java__ to create your personalized calisthenics program.**
+**First in the terminal run ```javac *.java``` to compile the classes**
+**Second run ```javac -cp .:postgresql-42.6.0.jar *.java``` to load JDBC drivers(Unix/macOS)**
+**On Windows run ```javac -cp .;postgresql-42.6.0.jar *.java```**
+**Lastly run ```java -cp .:postgresql-42.6.0.jar CalisthenicsApp``` to run the application(Unix/macOS)**
+**On Windows run ```java -cp .;postgresql-42.6.0.jar CalisthenicsApp```**
 
 ## First stage requirements:
 1. System definition
 - [x] Create a list based on the chosen theme of at least **10 actions/queries** that can be done within the system and a list of at least **8 object types**.
 2. Implementation
-- [x] Implement in the Java language an application based on those defined in the first point.
+- [x] Implement a Java application based on those defined in the first point.
 - [x] The application will contain:
     - [x] Simple classes with **private / protected attributes and access methods**
     - [x] At least **2 different collections** capable of managing the previously defined objects (e.g., List, Set, Map, etc.), of which at least one must be **sorted**
@@ -44,7 +54,7 @@
 ### Audit Service Implementation
 
 1. CSV Logging:
-- [] Create a service that logs each executed action to a CSV file and the service should be singleton and thread-safe so I created a singletonti class and for each create/view/update/delete operation I log the user + type of operation and the timestamp
+- [] Create a service that logs each executed action to a CSV file and the service should be singleton and thread-safe so I created a singleton class and for each create/view/update/delete operation I log the user + type of operation and the timestamp
 
 2. File Structure:
 - [] The CSV file should contain the following columns:
@@ -55,11 +65,11 @@
  1. Create a user.
  2. Set a training program for the week.
  3. For each day of the week, create a training program.
- 4. For the skill level selected for the day, the user can only see the corresponding skills (e.g., for beginner static skills, the user will only see beginner static skills from which to choose).
+ 4. For the skill level selected for the day, the user can only see the corresponding exercises (e.g., for beginner static skills, the user will only see beginner static skills from which to choose).
  5. Choose a skill level for static skills for the user.
- 6. Choose a static skill.
+ 6. Choose a static exercise.
  7. Choose a skill level for dynamic skills for the user.
- 8. Choose a dynamic skill.
+ 8. Choose a dynamic exercise.
  9. Choose sets and reps to do (no skill question here since the static one reflects it, and you can mostly choose almost any to train regardless).
 10. At the end, view the training program for the week along with user information.
 11. Options for wrong inputs (the user can re-enter input if it's not valid). 
