@@ -12,6 +12,9 @@ import java.sql.*;
 // java -cp .:postgresql-42.6.0.jar CalisthenicsApp
 
 public class Service_class extends Exercise {
+
+    private final DatabaseService dbService = DatabaseService.getInstance();
+
     public void addInput(String input){
         exercises.add(input);
     }
@@ -50,11 +53,7 @@ public class Service_class extends Exercise {
     }
 
     public void storePlan(String athleteName, HashMap<String, ExercisePlan> weeklyPlan) {
-        String url = "jdbc:postgresql://localhost:5432/calisthenics_training_program";
-        String user = "postgres";
-        String password = "dlmvm";
-
-
+        
         String lower_case_AthleteName = athleteName.toLowerCase().replaceAll("[^a-z]", "");
         String tableName = lower_case_AthleteName + "_training_plan";
 
@@ -69,38 +68,29 @@ public class Service_class extends Exercise {
         String insertSQL = "INSERT INTO " + tableName + " (day, static_exercise, dynamic_exercise, sets_reps_exercise) " + "VALUES (?, ?, ?, ?)";
 
         try {
-            Class.forName("org.postgresql.Driver");
-            System.out.println("PostgreSQL JDBC driver loaded successfully");
-
-            try (Connection connection = DriverManager.getConnection(url, user, password);
-                Statement statement = connection.createStatement()) {
-
-                System.out.println("Connected to PostgreSQL database successfully!");
-
-                statement.execute(createTableSQL);
-                System.out.println("Table '" + tableName + "' created or verified successfully!");
-
-                try (PreparedStatement insert = connection.prepareStatement(insertSQL)) {
-                    for (Map.Entry<String, ExercisePlan> entry : weeklyPlan.entrySet()) {
-                        String day = entry.getKey();
-                        ExercisePlan plan = entry.getValue();
+            dbService.executeUpdate(createTableSQL, insert -> {});
 
 
+            for (Map.Entry<String, ExercisePlan> entry : weeklyPlan.entrySet()) {
+                String day = entry.getKey();
+                ExercisePlan plan = entry.getValue();
+
+
+                dbService.executeUpdate(insertSQL, insert -> {
+                    try {
                         insert.setString(1, day);
                         insert.setString(2, plan.getStaticExercise());
                         insert.setString(3, plan.getDynamicExercise());
                         insert.setString(4, plan.getSetsAndReps());
-
-                        insert.executeUpdate();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
                     }
-                }
-
-                System.out.println("Training plan stored successfully for athlete: " + athleteName);
-
+                });
             }
-        } catch (ClassNotFoundException e) {
-            System.err.println("PostgreSQL JDBC driver not found: " + e.getMessage());
-            e.printStackTrace();
+                
+
+            System.out.println("Training plan stored successfully for athlete: " + athleteName);
+
         } catch (SQLException e) {
             System.err.println("Database error: " + e.getMessage());
             e.printStackTrace();
@@ -128,35 +118,31 @@ public class Service_class extends Exercise {
     }
 
     public void showExistingPlan(String athleteName) {
-        String url = "jdbc:postgresql://localhost:5432/calisthenics_training_program";
-        String user = "postgres";
-        String password = "dlmvm";
-
         String tableName = athleteName.toLowerCase().replaceAll("[^a-z]", "") + "_training_plan";
-        String selectSQL = "SELECT day, static_exercise, dynamic_exercise, sets_reps_exercise " +
-                        "FROM " + tableName;
+        String selectSQL = "SELECT day, static_exercise, dynamic_exercise, sets_reps_exercise " + "FROM " + tableName;
 
-        HashMap<String, ExercisePlan> weeklyPlan = new HashMap<>();
-
-        try (Connection connection = DriverManager.getConnection(url, user, password);
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(selectSQL)) {
-
-            while (rs.next()) {
-                String day = rs.getString("day");
-                String staticEx = rs.getString("static_exercise");
-                String dynamicEx = rs.getString("dynamic_exercise");
-                String setsReps = rs.getString("sets_reps_exercise");
-
-                ExercisePlan plan = new ExercisePlan(staticEx, dynamicEx, setsReps);
-                weeklyPlan.put(day, plan);
-            }
+        try {
+            HashMap<String, ExercisePlan> weeklyPlan = dbService.executeQuery(selectSQL, null, rs -> {
+                HashMap<String, ExercisePlan> map = new HashMap<>();
+                try {
+                    while (rs.next()) {
+                        String day = rs.getString("day");
+                        String staticEx = rs.getString("static_exercise");
+                        String dynamicEx = rs.getString("dynamic_exercise");
+                        String setsReps = rs.getString("sets_reps_exercise");
+                        map.put(day, new ExercisePlan(staticEx, dynamicEx, setsReps));
+                    }
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                return map;
+            });
 
             Map<String, ExercisePlan> sortedPlan = sortMap(weeklyPlan);
             outPlan(weeklyPlan, sortedPlan);
 
         } catch (SQLException e) {
-            System.err.println("Error fetching training program: " + e.getMessage());
+            System.err.println("Database error: " + e.getMessage());
             e.printStackTrace();
         }
     }

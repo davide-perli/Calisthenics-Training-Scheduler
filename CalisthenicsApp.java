@@ -69,7 +69,7 @@ public class CalisthenicsApp {
 
                 String[] days = {"MON", "TUE", "WEN", "THU", "FRY", "SAT", "SUN"};
                 System.out.println("\nSelect a day to modify:");
-                for(int i=0; i<days.length; i++) {
+                for(int i = 0; i < days.length; i++) {
                     System.out.println((i+1) + ". " + days[i]);
                 }
                 
