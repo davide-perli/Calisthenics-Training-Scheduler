@@ -10,11 +10,39 @@
 
 # Compilation
 
-**First in the terminal run ```javac *.java``` to compile the classes**
-**Second run ```javac -cp .:postgresql-42.6.0.jar *.java``` to load JDBC drivers(Unix/macOS)**
-**On Windows run ```javac -cp .;postgresql-42.6.0.jar *.java```**
-**Lastly run ```java -cp .:postgresql-42.6.0.jar CalisthenicsApp``` to run the application(Unix/macOS)**
-**On Windows run ```java -cp .;postgresql-42.6.0.jar CalisthenicsApp```**
+First in the terminal run:
+```bash
+javac *.java
+````
+
+to compile the classes.
+
+Second, load JDBC drivers:
+
+* **Unix/macOS:**
+
+  ```bash
+  javac -cp .:postgresql-42.6.0.jar *.java
+  ```
+* **Windows:**
+
+  ```bash
+  javac -cp .;postgresql-42.6.0.jar *.java
+  ```
+
+Lastly, run the application:
+
+* **Unix/macOS:**
+
+  ```bash
+  java -cp .:postgresql-42.6.0.jar CalisthenicsApp
+  ```
+* **Windows:**
+
+  ```bash
+  java -cp .;postgresql-42.6.0.jar CalisthenicsApp
+  ```
+
 
 ## First stage requirements:
 1. System definition
