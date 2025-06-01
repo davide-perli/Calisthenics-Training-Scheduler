@@ -161,7 +161,68 @@ public class Service_class extends Exercise {
         }
     }
 
+    public void showExistingPlanForDay(String athleteName, String day) {
+        String url = "jdbc:postgresql://localhost:5432/calisthenics_training_program";
+        String user = "postgres";
+        String password = "dlmvm";
 
+        String tableName = athleteName.toLowerCase().replaceAll("[^a-z]", "") + "_training_plan";
+        String selectSQL = "SELECT day, static_exercise, dynamic_exercise, sets_reps_exercise " +
+                        "FROM " + tableName + " WHERE day = ?";
+
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+            PreparedStatement statement = connection.prepareStatement(selectSQL)) {
+            
+            // Set the parameter value for the day
+            statement.setString(1, day);
+            
+            try (ResultSet rs = statement.executeQuery()) {
+                if (!rs.isBeforeFirst()) {
+                    System.out.println("No training plan found for " + day);
+                    return;
+                }
+
+                while (rs.next()) {
+                    String staticEx = rs.getString("static_exercise");
+                    String dynamicEx = rs.getString("dynamic_exercise");
+                    String setsReps = rs.getString("sets_reps_exercise");
+
+                    ExercisePlan plan = new ExercisePlan(staticEx, dynamicEx, setsReps);
+                    System.out.println(day + " -> " + plan.toString());
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching training plan for day " + day + ": " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public boolean updateTrainingDay(String athleteName, String day, String staticEx, 
+                               String dynamicEx, String setsReps) {
+        String url = "jdbc:postgresql://localhost:5432/calisthenics_training_program";
+        String user = "postgres";
+        String password = "dlmvm";
+
+        String tableName = athleteName.toLowerCase().replaceAll("[^a-z]", "") + "_training_plan";
+        String updateSQL = "UPDATE " + tableName + " SET static_exercise = ?, " +
+                        "dynamic_exercise = ?, sets_reps_exercise = ? WHERE day = ?";
+
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+            PreparedStatement statement = connection.prepareStatement(updateSQL)) {
+            
+            statement.setString(1, staticEx);
+            statement.setString(2, dynamicEx);
+            statement.setString(3, setsReps);
+            statement.setString(4, day);
+            
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+            
+        } catch (SQLException e) {
+            System.err.println("Error updating training plan for day " + day + ": " + e.getMessage());
+            return false;
+        }
+    }
 
     @Override
     public String getExercise(int index) {

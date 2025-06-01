@@ -18,6 +18,37 @@
     - [x] At least **one service class** to expose system operations
     - [x] A **Main class** from which calls to services are made
 
+# Second Stage requirements:
+
+### Database Persistence Implementation
+
+1. Relational Database Integration:
+- [x] Implement persistence using a relational database (MySQL, PostgreSQL, Oracle, etc.)
+- [x] Use JDBC for database connectivity
+- [] Create appropriate database tables that map to your domain classes
+
+2. CRUD Operations:
+- [] Develop services that provide CRUD functionality for at least 4 of your domain classes and each service should implement:
+  - Create (insert) operations
+  - Read (select) operations
+  - Update operations
+  - Delete operations
+
+3. Generic Singleton Services:
+- [] Implement generic singleton services for database operations:
+  - A service for writing to the database
+  - A service for reading from the database
+
+### Audit Service Implementation
+
+1. CSV Logging:
+- [] Create a service that logs each executed action to a CSV file and the service should be singleton and thread-safe
+
+2. File Structure:
+- [] The CSV file should contain the following columns:
+  - `action_name`: Name/description of the executed action
+  - `timestamp`: When the action occurred (use ISO 8601 format)
+
 ## Actions/Queries:
  1. Create a user.
  2. Set a training program for the week.
