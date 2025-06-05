@@ -32,7 +32,7 @@ To create the three required exercise tables, run the application and log in as 
 
 2. Include the JDBC driver on the classpath:
 
-   * **Unix/macOS:**
+   * **Linux(Unix)/macOS:**
 
      ```bash
      javac -cp .:postgresql-42.6.0.jar *.java
@@ -45,7 +45,7 @@ To create the three required exercise tables, run the application and log in as 
 
 3. Run the application:
 
-   * **Unix/macOS:**
+   * **Linux(Unix)/macOS:**
 
      ```bash
      java -cp .:postgresql-42.6.0.jar CalisthenicsApp
