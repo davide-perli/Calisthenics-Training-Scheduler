@@ -7,6 +7,54 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class CalisthenicsApp {
+
+    public static void manageExercises(Exercise exerciseObj, String type, Scanner myObj) {
+        while (true) {
+            System.out.println("\nManage " + type + " exercises:");
+            System.out.println("1. View all");
+            System.out.println("2. Add new");
+            System.out.println("3. Update name");
+            System.out.println("4. Delete");
+            System.out.println("5. Back to main menu");
+            System.out.print("Option: ");
+            int option = myObj.nextInt();
+            myObj.nextLine();
+
+            if (option == 1) {
+                List<String> all = exerciseObj.getAllExercisesFromDB();
+                System.out.println("\nAll " + type + " exercises:");
+                for (int i = 0; i < all.size(); i++) {
+                    System.out.println((i + 1) + ". " + all.get(i));
+                }
+            } else if (option == 2) {
+                System.out.print("Exercise name: ");
+                String name = myObj.nextLine();
+                System.out.print("Skill level (beginner/intermidiate/advanced/expert): ");
+                String level = myObj.nextLine();
+                exerciseObj.addExerciseToDB(name, level);
+                System.out.println("Added!");
+            } else if (option == 3) {
+                System.out.print("Exercise ID to update: ");
+                int id = myObj.nextInt();
+                myObj.nextLine();
+                System.out.print("New name: ");
+                String newName = myObj.nextLine();
+                exerciseObj.updateExerciseName(id, newName);
+                System.out.println("Updated!");
+            } else if (option == 4) {
+                System.out.print("Exercise ID to delete: ");
+                int id = myObj.nextInt();
+                exerciseObj.deleteExercise(id);
+                System.out.println("Deleted!");
+            } else if (option == 5) {
+                break;
+            } else {
+                System.out.println("Invalid option!");
+            }
+        }
+    }
+
+
     public static void main(String[] args) {
         Scanner myObj = new Scanner(System.in);
         String name_input;
@@ -39,6 +87,43 @@ public class CalisthenicsApp {
 
         Athlete user = new Athlete();
         user.setName(name_input);
+
+        if (user.getName().equalsIgnoreCase("admin")) {
+            Add_Exercise seeder = new Add_Exercise();
+
+            while (true) {
+                System.out.println("\nADMIN MENU\n");
+                System.out.println("What do you want to manage?");
+                System.out.println("1. Static exercises");
+                System.out.println("2. Dynamic exercises");
+                System.out.println("3. Sets & Reps exercises");
+                System.out.println("4. Add default exercises");
+                System.out.println("5. Exit");
+                System.out.print("Option: ");
+                int adminOption = myObj.nextInt();
+                myObj.nextLine(); 
+
+                if (adminOption == 1) {
+                    manageExercises(new Static_exercise(), "static", myObj);
+                } else if (adminOption == 2) {
+                    manageExercises(new Dynamic_exercise(), "dynamic", myObj);
+                } else if (adminOption == 3) {
+                    manageExercises(new Sets_and_reps(), "sets_and_reps", myObj);
+                } else if (adminOption == 4) {
+                    seeder.seedAll();
+                    System.out.println("\nDefault exercises have been inserted into all three tables.\n");
+                } else if (adminOption == 5) {
+                    System.out.println("Exiting admin menu.");
+                    break;
+                } else {
+                    System.out.println("Invalid option! Please choose 1–5.\n");
+                }
+            }
+
+            myObj.close();
+            System.exit(0);
+        }
+
 
         if (alreadyExists) {
             System.out.println("\nWelcome back " + user.getName() + "!\n\nChoose what you want to do:\n1. Create a new training program\n2. View existing training program\n3. Modify you training program\n4. Delete training program\n");

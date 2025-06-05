@@ -26,7 +26,6 @@ public class Training {
 
     public Training(Athlete athlete) {
         
-        //System.out.println("For each day of the week you'll choose exercises for " + stat_lev_val + " static level and " + dyn_lev_val + " dynamic level");
         for (String i : days) {
 
             System.out.println("For " + i + " choose the skill level and exercise to train");

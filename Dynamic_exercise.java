@@ -1,32 +1,108 @@
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public class Dynamic_exercise extends Exercise{
-    
+public class Dynamic_exercise extends Exercise {
     private Service_class x;
+    private DatabaseService db = DatabaseService.getInstance();
 
-    public Dynamic_exercise(){
+    public Dynamic_exercise() {
         x = new Service_class();
-        x.addInput("180");
-        x.addInput("Front Roll");
-        x.addInput("Dragon 360");
-        x.addInput("360");
-        x.addInput("Baby Giant");
-        x.addInput("Giant");
-        x.addInput("Geinger");
-        x.addInput("540");
-        x.addInput("Front Flip Regrab");
-        x.addInput("720");
-        x.addInput("Giant 360");
-
-        for(int i = 0; i < 11; i++){
-            if(i <= 1){x.putInput(x.getExercise(i), "beginner");}
-            else if(i <= 4){x.putInput(x.getExercise(i), "intermidiate");}
-            else if(i <= 7){x.putInput(x.getExercise(i), "advanced");}
-            else{x.putInput(x.getExercise(i), "expert");}
-        }
-
+        loadFromDatabase();
         this.exercises = new ArrayList<>(x.exercises);
+    }
+
+    @Override
+    public List<String> getAllExercisesFromDB() {
+        String sql = "SELECT name FROM dynamic_exercise";
+        try {
+            return db.executeQuery(sql, null, rs -> {
+                List<String> list = new ArrayList<>();
+                try {
+                    while (rs.next()) {
+                        list.add(rs.getString("name"));
+                    }
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                return list;
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public void addExerciseToDB(String name, String skillLevel) {
+        String sql = "INSERT INTO dynamic_exercise (name, skill_level) VALUES (?, ?)";
+        try {
+            db.executeUpdate(sql, pstmt -> {
+                try {
+                    pstmt.setString(1, name);
+                    pstmt.setString(2, skillLevel);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateExerciseName(int id, String newName) {
+        String sql = "UPDATE dynamic_exercise SET name = ? WHERE id = ?";
+        try {
+            db.executeUpdate(sql, pstmt -> {
+                try {
+                    pstmt.setString(1, newName);
+                    pstmt.setInt(2, id);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteExercise(int id) {
+        String sql = "DELETE FROM dynamic_exercise WHERE id = ?";
+        try {
+            db.executeUpdate(sql, pstmt -> {
+                try {
+                    pstmt.setInt(1, id);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadFromDatabase() {
+        String sql = "SELECT name, skill_level FROM dynamic_exercise";
+        try {
+            db.executeQuery(sql, null, rs -> {
+                try {
+                    while (rs.next()) {
+                        String name  = rs.getString("name");
+                        String skill = rs.getString("skill_level");
+                        x.addInput(name);
+                        x.putInput(name, skill);
+                    }
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                return null;
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -39,6 +115,3 @@ public class Dynamic_exercise extends Exercise{
         return x.getExerciseRanked();
     }
 }
-
-
-
